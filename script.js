@@ -1,18 +1,13 @@
-document.querySelectorAll(".box button").forEach(button => {
-  button.addEventListener("click", () => {
-    const box = button.parentElement;
-    const correctCode = box.getAttribute("data-code").toLowerCase();
-    const content = box.getAttribute("data-content");
+function verificar() {
+  const respuesta = document.getElementById("respuesta").value.trim().toLowerCase();
+  const mensaje = document.getElementById("mensaje");
 
-    const userCode = prompt("Ingresá el código secreto:").toLowerCase();
-    let audio = new Audio('https://www.myinstants.com/media/sounds/success-fanfare-trumpets.mp3');
-    audio.play();
-
-
-    if (userCode === correctCode) {
-      box.innerHTML = `<span class="title">✅ Desbloqueada</span><p>${content}</p>`;
-    } else {
-      alert("Código incorrecto 😢");
-    }
-  });
-});
+  if (respuesta === "hijo" || respuesta === "hijos") {
+    mensaje.style.color = "green";
+    mensaje.textContent = "✅ ¡Respuesta correcta! (acá va tu mensaje especial)";
+    // Cuando tengas el mensaje especial, reemplazamos esa línea.
+  } else {
+    mensaje.style.color = "red";
+    mensaje.textContent = "❌ Esa no es la respuesta correcta, intenta de nuevo.";
+  }
+}
