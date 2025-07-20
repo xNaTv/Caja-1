@@ -8,7 +8,7 @@
       margin: 0;
       padding: 0;
       background-color: #ffdce5;
-      font-family: 'Arial', sans-serif;
+      font-family: 'Cursive', sans-serif;
       overflow: hidden;
       position: relative;
       height: 100vh;
@@ -34,6 +34,7 @@
       box-shadow: 0 0 15px rgba(0,0,0,0.2);
       z-index: 2;
       position: relative;
+      font-style: italic;
     }
 
     .pregunta {
@@ -47,6 +48,7 @@
       border-radius: 10px;
       border: 1px solid #ccc;
       margin-bottom: 10px;
+      font-style: italic;
     }
 
     button {
@@ -57,6 +59,7 @@
       border-radius: 15px;
       cursor: pointer;
       transition: 0.3s;
+      font-style: italic;
     }
 
     button:hover {
@@ -67,9 +70,10 @@
       margin-top: 15px;
       font-size: 1.2em;
       color: green;
+      font-style: italic;
     }
 
-    /* Corazones animados */
+    /* Corazones animados cayendo */
     .corazones {
       position: fixed;
       width: 100%;
@@ -77,37 +81,32 @@
       pointer-events: none;
       top: 0;
       left: 0;
-      overflow: hidden;
       z-index: 0;
     }
 
-    .corazones::before,
-    .corazones::after {
-      content: '💖💗💘💞💕';
-      font-size: 2em;
+    .corazon {
       position: absolute;
-      animation: caer 10s linear infinite;
-    }
-
-    .corazones::after {
-      left: 50%;
-      animation-delay: 2s;
+      color: pink;
+      font-size: 24px;
+      animation: caer 6s linear infinite;
     }
 
     @keyframes caer {
       0% {
-        top: -10%;
+        top: -5%;
+        opacity: 1;
         transform: translateX(0);
       }
       100% {
-        top: 110%;
+        top: 105%;
+        opacity: 0;
         transform: translateX(30px);
       }
     }
   </style>
 </head>
 <body>
-  <div class="corazones"></div>
+  <div class="corazones" id="corazones"></div>
 
   <h1 class="titulo">Caja 1 💝</h1>
 
@@ -119,19 +118,38 @@
   </div>
 
   <script>
+    // Función para verificar la respuesta
     function verificar() {
       const respuesta = document.getElementById("respuesta").value.trim().toLowerCase();
       const mensaje = document.getElementById("mensaje");
 
-      if (respuesta === "hijo" || respuesta === "hijos") {
+      if (respuesta === "cuando") {
         mensaje.style.color = "green";
-        mensaje.textContent = "✅ ¡Respuesta correcta! (acá va tu mensaje especial)";
-        // Cuando tengas el mensaje especial, reemplazamos esa línea.
+        mensaje.textContent = "✅ ¡Respuesta correcta! Has desbloqueado la contraseña: 'cuando'.";
       } else {
         mensaje.style.color = "red";
         mensaje.textContent = "❌ Esa no es la respuesta correcta, intenta de nuevo.";
       }
     }
+
+    // Generador de corazones cayendo
+    function generarCorazones() {
+      const contenedor = document.getElementById("corazones");
+      const corazon = document.createElement("div");
+      corazon.classList.add("corazon");
+      corazon.textContent = "💗";
+      corazon.style.left = Math.random() * 100 + "vw";
+      corazon.style.animationDuration = (Math.random() * 3 + 4) + "s";
+      contenedor.appendChild(corazon);
+
+      // Eliminar corazones después de caer
+      setTimeout(() => {
+        corazon.remove();
+      }, 7000);
+    }
+
+    // Crear corazones continuamente
+    setInterval(generarCorazones, 300);
   </script>
 </body>
 </html>
